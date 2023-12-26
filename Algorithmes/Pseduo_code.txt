@@ -1,0 +1,50 @@
+Algorithm: COSMIC Measurement Process
+Input: Arduino code
+Outputs: Total CFP value
+
+Begin
+{
+ 1. Read the Arduino code as input.
+ 2. Initialize counters for each type of data movement:
+    - count_E = 0
+    - count_X = 0
+    - count_R = 0
+    - count_W = 0
+ 3. Identify all functional processes
+
+ 4. For Each functional process:
+    a. If the line contains a triggering entry:
+        - Increment count_E by 1.
+    b. If the line contains the value the declared function returns:
+        - Increment count_X by 1.    
+    c. If the line contains input parameters of function    
+            For each input parameter: 
+                - Increment count_E by 1.
+    
+ 5. For each body of the function:
+            For each line of the Arduino code, check for the following guidelines:
+                a. If the line contains a signal received via the network:
+                    - Increment count_E by 1.
+                b. If the line contains a value returned after calling a function from an external library:
+                    - Increment count_E by 1.
+                c. If the line contains a signal sent via the network:
+                    - Increment count_X by 1.
+                d. If the line contains data retrieved from persistent storage:
+                    - Increment count_R by 1.
+                e. If the line contains a variable read:
+                    - Increment count_R by 1.
+                f. If the line contains retrieving a hardware configuration:
+                    - Increment count_R by 1.
+                g. If the line contains data stored in persistent storage:
+                    - Increment count_W by 1.
+                h. If the line contains a variable write:
+                    - Increment count_W by 1.
+                i. If the line contains initialization of a variable:
+                    - Increment count_W by 1.
+                j. If the line contains a hardware configuration:
+                    - Increment count_W by 1.
+
+ 6. Output the total count of each type of data movement within functional processes:
+        - Size (FP) = Σ (count_E) + Σ (count_X) + Σ (count_R) + Σ (count_W) 
+    }
+End
